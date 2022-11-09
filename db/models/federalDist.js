@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
   }, {
     sequelize,
-    modelName: 'federal_dist',
+    modelName: 'FederalDist',
   });
   return FederalDist;
 };

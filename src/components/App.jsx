@@ -1,7 +1,22 @@
 import React from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Auth from './Auth';
+import Initiatives from './Initiatives';
+import NavBar from './NavBar';
+import Reg from './Reg';
 
-export default function App() {
+export default function App({
+  user, federalDists, regions, municipals,
+}) {
+  console.log('federal huinya', federalDists);
   return (
-    <div>App</div>
+    <div className="container">
+      <NavBar user={user} />
+      <Routes>
+        <Route path="/" element={<Initiatives />} />
+        <Route path="/reg" element={<Reg federalDists={federalDists} regions={regions} municipals={municipals} />} />
+        <Route path="/auth" element={<Auth />} />
+      </Routes>
+    </div>
   );
 }
