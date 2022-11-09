@@ -1,7 +1,13 @@
 import React from 'react';
+import OneInitiative from './OneInitiative';
 
-export default function App() {
+function App() {
   return (
-    <div>App</div>
+    <div>
+      
+      <OneInitiative />
+    </div>
   );
 }
+
+export default App;
