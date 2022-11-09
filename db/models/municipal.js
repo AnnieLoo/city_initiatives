@@ -1,7 +1,7 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class Municipal extends Model {
     /**
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Municipal.init({
     name: DataTypes.STRING,
-    region_id: DataTypes.INTEGER
+    region_id: DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Municipal',
