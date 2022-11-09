@@ -1,4 +1,5 @@
 import React from 'react';
+import OneInitiative from './OneInitiative';
 import { Route, Routes } from 'react-router-dom';
 import Auth from './Auth';
 import Initiatives from './Initiatives';
@@ -16,6 +17,7 @@ export default function App({
         <Route path="/" element={<Initiatives />} />
         <Route path="/reg" element={<Reg federalDists={federalDists} regions={regions} municipals={municipals} />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/initiative" element={<OneInitiative />} />
       </Routes>
     </div>
   );
