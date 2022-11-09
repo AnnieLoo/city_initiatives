@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     federalDist_id: DataTypes.INTEGER,
   }, {
     sequelize,
-    modelName: 'region',
+    modelName: 'Region',
   });
   return Region;
 };
