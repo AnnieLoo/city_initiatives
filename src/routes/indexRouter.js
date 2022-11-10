@@ -1,5 +1,5 @@
 import express from 'express';
-import session from 'express-session';
+// import session from 'express-session';
 import {
   FederalDist, Region, Municipal, Initiative, User, Level,
 } from '../../db/models';
@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
     raw: true,
   });
   const initState = {
-    federalDists, regions, municipals, allInitiatives, levels
+    federalDists, regions, municipals, allInitiatives, levels,
   };
   res.render('Layout', initState);
 });
@@ -85,21 +85,38 @@ router.post('/initiatives/:id/voteAgainst', authCheck, async (req, res) => {
 });
 
 router.route('/newInitiative')
-  .get((req, res) => {
-    res.render('Layout');
+  .get(async (req, res) => {
+    const federalDists = await FederalDist.findAll();
+    const levels = await Level.findAll();
+    const regions = await Region.findAll();
+    const municipals = await Municipal.findAll();
+    // const allInitiatives = await Initiative.findAll();
+    const allInitiatives = await Initiative.findAll({
+      include: [
+        { model: User, attributes: ['name'] },
+        { model: Level, attributes: ['name'] },
+      ],
+      raw: true,
+    });
+    const initState = {
+      federalDists, regions, municipals, allInitiatives, levels,
+    };
+    res.render('Layout', initState);
   })
-  .post(async (req, res) => {
+  .post(authCheck, async (req, res) => {
+    // console.log(req.body);
     const {
-      name, description, term,
+      name, description, term, level,
     } = req.body;
-    if (!name || !description || !term) return res.send(400);
-    await Initiative.create({
+    if (!name || !description || !term || !level) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
+    const newInitiative = await Initiative.create({
       name,
       description,
-      user_id: 1,
+      user_id: req.session.user.id,
       term,
+      level_id: Number(level),
     });
-    res.send(200);
+    res.json(newInitiative);
   });
 
 export default router;

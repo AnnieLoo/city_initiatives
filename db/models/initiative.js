@@ -26,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     term: DataTypes.STRING,
     vote_for: DataTypes.INTEGER,
     vote_against: DataTypes.INTEGER,
+    avatar: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Initiative',

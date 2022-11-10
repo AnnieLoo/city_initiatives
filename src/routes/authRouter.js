@@ -53,6 +53,8 @@ router.get('/account', async (req, res) => {
   const initState = { user };
   res.render('Layout', initState);
 });
+
+
 router.get('/logout', (req, res) => {
   res.clearCookie('user_sid'); // удалить куку
   req.session.destroy(); // завершить сессию

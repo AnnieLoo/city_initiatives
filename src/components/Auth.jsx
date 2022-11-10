@@ -21,7 +21,7 @@ export default function Auth() {
   };
   return (
     <>
-      <h1>Регистрация</h1>
+      <h1>Авторизация</h1>
       {error && <p style={{ color: 'red' }}>{error}</p>}
       <form onSubmit={submitHandler}>
         <div className="mb-3">
