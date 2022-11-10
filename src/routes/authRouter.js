@@ -28,7 +28,7 @@ router.post('/reg', async (req, res) => {
   const {
     name, email, password, federalDist, region, municipal,
   } = req.body;
-  if (!name || !email || !password || !federalDist || !region || !municipal) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
+  if (!name || !email || !password || !federalDist || !region) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
 
   const hashPassword = await hash(password, 10);
 
@@ -43,7 +43,16 @@ router.post('/reg', async (req, res) => {
     console.error(err);
   }
 });
-
+router.get('/account', async (req, res) => {
+  const user = await User.findOne({
+    include: { all: true },
+    where: { id: req.session.user.id },
+    raw: true,
+  });
+  // console.log(user);
+  const initState = { user };
+  res.render('Layout', initState);
+});
 router.get('/logout', (req, res) => {
   res.clearCookie('user_sid'); // удалить куку
   req.session.destroy(); // завершить сессию
