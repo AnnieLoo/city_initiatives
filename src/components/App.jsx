@@ -12,7 +12,6 @@ import AuthorInitiatives from './AuthorInitiatives';
 export default function App({
   user, federalDists, regions, municipals, initiative, allInitiatives, authorInitiatives, levels
 }) {
-
   return (
     <div className='row'>
       <NavBar user={user} />
