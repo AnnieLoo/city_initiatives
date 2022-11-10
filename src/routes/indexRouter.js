@@ -3,15 +3,17 @@ import session from 'express-session';
 import {
   FederalDist, Region, Municipal, Initiative, User, Level,
 } from '../../db/models';
+import authCheck from '../middlewares/authCheck';
 
 const router = express.Router();
 
 router.get('/', async (req, res) => {
   const federalDists = await FederalDist.findAll();
+  const levels = await Level.findAll();
   const regions = await Region.findAll();
   const municipals = await Municipal.findAll();
-  const allInitiatives = await Initiative.findAll();
-  const authorInitiatives = await Initiative.findAll({
+  // const allInitiatives = await Initiative.findAll();
+  const allInitiatives = await Initiative.findAll({
     include: [
       { model: User, attributes: ['name'] },
       { model: Level, attributes: ['name'] },
@@ -19,7 +21,7 @@ router.get('/', async (req, res) => {
     raw: true,
   });
   const initState = {
-    federalDists, regions, municipals, allInitiatives, authorInitiatives,
+    federalDists, regions, municipals, allInitiatives, levels
   };
   res.render('Layout', initState);
 });
@@ -70,13 +72,13 @@ router.get('/initiatives/:authorId/author', async (req, res) => {
   res.render('Layout', initState);
 });
 
-router.post('/initiatives/:id/voteFor', async (req, res) => {
+router.post('/initiatives/:id/voteFor', authCheck, async (req, res) => {
   const findInitiative = await Initiative.findOne({ where: { id: req.params.id } });
   await findInitiative.increment('vote_for', { by: 1 });
   res.json({ findInitiative });
 });
 
-router.post('/initiatives/:id/voteAgainst', async (req, res) => {
+router.post('/initiatives/:id/voteAgainst', authCheck, async (req, res) => {
   const findInitiative = await Initiative.findOne({ where: { id: req.params.id } });
   await findInitiative.increment('vote_against', { by: 1 });
   res.json({ findInitiative });
