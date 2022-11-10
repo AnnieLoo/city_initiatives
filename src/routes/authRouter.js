@@ -28,7 +28,7 @@ router.post('/reg', async (req, res) => {
   const {
     name, email, password, federalDist, region, municipal,
   } = req.body;
-  if (!name || !email || !password || !federalDist || !region || !municipal) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
+  if (!name || !email || !password || !federalDist || !region) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
 
   const hashPassword = await hash(password, 10);
 

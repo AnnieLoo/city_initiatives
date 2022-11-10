@@ -1,26 +1,79 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-export default function OneInitiative() {
+export default function OneInitiative({ initiative, allInitiatives }) {
+  const [votesFor, setVotesFor] = useState(initiative.vote_for);
+  const [votesAgainst, setVotesAgainst] = useState(initiative.vote_against);
+
+  const votesForHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/initiatives/${initiative.id}/voteFor`, {
+        method: 'POST',
+        headers: {
+          'Contenet-Type': 'application/json',
+        },
+        body: JSON.stringify({ votesFor }),
+      });
+      if (response.ok) {
+        setVotesFor(votesFor + 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const votesAgainstHandler = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await fetch(`/initiatives/${initiative.id}/voteAgainst`, {
+        method: 'POST',
+        headers: {
+          'Contenet-Type': 'application/json',
+        },
+        body: JSON.stringify({ votesAgainst }),
+      });
+      if (response.ok) {
+        setVotesAgainst(votesAgainst + 1);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <section className="oneInitiative-section">
 
-      <div className='container-1'>
-        <h1 className="oneInitiative-title">НАЗВАНИЕ ИНИЦИАТИВЫ</h1>
-        <h6 className="card-subtitle mb-2 text-muted">АВТОР</h6>
+      <div className="container-1">
+        <h1 className="oneInitiative-title">{initiative.name}</h1>
+        <h6 className="card-subtitle mb-2 text-muted">{initiative['User.name']}</h6>
         <div className="oneInitiative-text">
-          <p>Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+          {initiative.description}
         </div>
       </div>
 
-      <div className='container-2'>
+      <div className="container-2">
         <h5>СРОК ОКОНЧАНИЯ ГОЛОСОВАНИЯ: </h5>
-        <h6 className="card-subtitle mb-2 text-muted">01 февраля 2019г. </h6>
+        <h6 className="card-subtitle mb-2 text-muted">
+          {initiative.term}
+          {' '}
+        </h6>
         <h5>УРОВЕНЬ ИНИЦИАТИВЫ:</h5>
-        <h6 className="card-subtitle mb-2 text-muted">ФЕДЕРАЛЬНЫЙ</h6>
+        <h6 className="card-subtitle mb-2 text-muted">{initiative['Level.name']}</h6>
         <h5>СУММАРНОЕ КОЛИЧЕСТВО ПРОГОЛОСОВАВШИХ:</h5>
-        <h6 className="card-subtitle mb-2 text-muted">1000</h6>
+        <h6 className="card-subtitle mb-2 text-muted">{votesFor + votesAgainst}</h6>
         <h5>ПРОЦЕНТ ПРОГОЛОСОВАВШИХ ЗА ИНИЦИАТИВУ </h5>
-        <h6 className="card-subtitle mb-2 text-muted">10%</h6>
+        <h6 className="card-subtitle mb-2 text-muted">
+          {((votesFor / (votesFor + votesAgainst)) * 100).toFixed()}
+          %
+        </h6>
+        <a href={`/initiatives/${initiative?.user_id}/author`} className="btn btn-success">Посмотреть все инициативы автора</a>
+        <form onSubmit={votesForHandler}>
+          <button type="submit" className="btn btn-info">За</button>
+        </form>
+        <form onSubmit={votesAgainstHandler}>
+          <button type="submit" className="btn btn-danger">Против</button>
+        </form>
       </div>
     </section>
 
