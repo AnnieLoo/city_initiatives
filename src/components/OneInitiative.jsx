@@ -2,8 +2,19 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 export default function OneInitiative({ initiative, allInitiatives }) {
+  const [error, setError] = useState(null);
   const [votesFor, setVotesFor] = useState(initiative.vote_for);
   const [votesAgainst, setVotesAgainst] = useState(initiative.vote_against);
+  const [editFor, setEditFor] = useState(false);
+  const [editAgainst, setEditAgainst] = useState(false);
+
+  // const clickForHandler = () => {
+  //   setEditFor(true);
+  // };
+
+  // const clickAgainstHandler = () => {
+  //   setEditAgainst(true);
+  // };
 
   const votesForHandler = async (e) => {
     e.preventDefault();
@@ -15,8 +26,12 @@ export default function OneInitiative({ initiative, allInitiatives }) {
         },
         body: JSON.stringify({ votesFor }),
       });
+      const data = await response.json();
       if (response.ok) {
         setVotesFor(votesFor + 1);
+        setEditFor(true);
+      } else {
+        setError(data.message);
       }
     } catch (err) {
       console.log(err);
@@ -33,8 +48,12 @@ export default function OneInitiative({ initiative, allInitiatives }) {
         },
         body: JSON.stringify({ votesAgainst }),
       });
+      const data = await response.json();
       if (response.ok) {
         setVotesAgainst(votesAgainst + 1);
+        setEditAgainst(true);
+      } else {
+        setError(data.message);
       }
     } catch (err) {
       console.log(err);
@@ -68,11 +87,12 @@ export default function OneInitiative({ initiative, allInitiatives }) {
           %
         </h6>
         <a href={`/initiatives/${initiative?.user_id}/author`} className="btn btn-success">Посмотреть все инициативы автора</a>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={votesForHandler}>
-          <button type="submit" className="btn btn-info">За</button>
+          <button disabled={editFor} type="submit" className="btn btn-info">За</button>
         </form>
         <form onSubmit={votesAgainstHandler}>
-          <button type="submit" className="btn btn-danger">Против</button>
+          <button type="submit" disabled={editAgainst} className="btn btn-danger">Против</button>
         </form>
       </div>
     </section>

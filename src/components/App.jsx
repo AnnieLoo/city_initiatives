@@ -8,13 +8,13 @@ import Reg from './Reg';
 import AuthorInitiatives from './AuthorInitiatives';
 
 export default function App({
-  user, federalDists, regions, municipals, initiative, allInitiatives, authorInitiatives
+  user, federalDists, regions, municipals, initiative, allInitiatives, authorInitiatives, levels
 }) {
   return (
     <div className='row'>
       <NavBar user={user} />
       <Routes>
-        <Route path="/" element={<Initiatives allInitiatives={allInitiatives} user={user} authorInitiatives={authorInitiatives}/>} />
+        <Route path="/" element={<Initiatives allInitiatives={allInitiatives} user={user} authorInitiatives={authorInitiatives} levels={levels}/>} />
         <Route path="/reg" element={<Reg federalDists={federalDists} regions={regions} municipals={municipals} />} />
         <Route path="/auth" element={<Auth />} />
         <Route path="/initiatives/:id" element={<OneInitiative initiative={initiative} allInitiatives={allInitiatives} />} />
