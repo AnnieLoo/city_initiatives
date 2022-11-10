@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 export default function OneInitiative({ initiative, allInitiatives }) {
   const [error, setError] = useState(null);
-  const [votesFor, setVotesFor] = useState(initiative.vote_for);
-  const [votesAgainst, setVotesAgainst] = useState(initiative.vote_against);
+  const [votesFor, setVotesFor] = useState(Number(initiative.vote_for));
+  const [votesAgainst, setVotesAgainst] = useState(Number(initiative.vote_against));
   const [editFor, setEditFor] = useState(false);
   const [editAgainst, setEditAgainst] = useState(false);
 
@@ -83,8 +83,7 @@ export default function OneInitiative({ initiative, allInitiatives }) {
         <h6 className="card-subtitle mb-2 text-muted">{votesFor + votesAgainst}</h6>
         <h5>ПРОЦЕНТ ПРОГОЛОСОВАВШИХ ЗА ИНИЦИАТИВУ </h5>
         <h6 className="card-subtitle mb-2 text-muted">
-          {((votesFor / (votesFor + votesAgainst)) * 100).toFixed()}
-          %
+          {(((votesFor / (votesFor + votesAgainst)) * 100).toFixed()) == 'NaN' ? 'еще нет голосов' : ((votesFor / (votesFor + votesAgainst)) * 100).toFixed() + "%"}
         </h6>
         <a href={`/initiatives/${initiative?.user_id}/author`} className="btn btn-success">Посмотреть все инициативы автора</a>
         {error && <p style={{ color: 'red' }}>{error}</p>}

@@ -9,11 +9,6 @@ export default function UserPage({ user }) {
           {' '}
           {user?.name}
         </h5>
-        <p className="card-text">
-          Уникальный номер:
-          {' '}
-          {user?.id}
-        </p>
       </div>
       <ul className="list-group list-group-flush">
         <li className="list-group-item">

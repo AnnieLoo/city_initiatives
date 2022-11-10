@@ -23,9 +23,17 @@ export default function NavBar({ user }) {
                 </li>
               </>
             ) : (
-              <li className="nav-item">
-                <a className="nav-link" href="/auth/logout">Выход</a>
-              </li>
+              <>
+                <li className="nav-item">
+                  <a className="nav-link" href="/auth/account">Личный кабинет</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/newInitiative">Создать инициативу</a>
+                </li>
+                <li className="nav-item">
+                  <a className="nav-link" href="/auth/logout">Выход</a>
+                </li>
+              </>
             )}
           </ul>
         </div>

@@ -37,9 +37,14 @@ module.exports = {
       },
       vote_for: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
       },
       vote_against: {
         type: Sequelize.INTEGER,
+        defaultValue: 0,
+      },
+      avatar: {
+        type: Sequelize.STRING,
       },
       createdAt: {
         allowNull: false,
