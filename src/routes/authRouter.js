@@ -43,7 +43,16 @@ router.post('/reg', async (req, res) => {
     console.error(err);
   }
 });
-
+router.get('/account', async (req, res) => {
+  const user = await User.findOne({
+    include: { all: true },
+    where: { id: req.session.user.id },
+    raw: true,
+  });
+  // console.log(user);
+  const initState = { user };
+  res.render('Layout', initState);
+});
 router.get('/logout', (req, res) => {
   res.clearCookie('user_sid'); // удалить куку
   req.session.destroy(); // завершить сессию
