@@ -1,4 +1,5 @@
 import express from 'express';
+import session from 'express-session';
 import {
   FederalDist, Region, Municipal, Initiative, User, Level,
 } from '../../db/models';
@@ -80,5 +81,23 @@ router.post('/initiatives/:id/voteAgainst', async (req, res) => {
   await findInitiative.increment('vote_against', { by: 1 });
   res.json({ findInitiative });
 });
+
+router.route('/newInitiative')
+  .get((req, res) => {
+    res.render('Layout');
+  })
+  .post(async (req, res) => {
+    const {
+      name, description, term,
+    } = req.body;
+    if (!name || !description || !term) return res.send(400);
+    await Initiative.create({
+      name,
+      description,
+      user_id: 1,
+      term,
+    });
+    res.send(200);
+  });
 
 export default router;
