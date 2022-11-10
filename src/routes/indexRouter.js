@@ -1,5 +1,8 @@
 import express from 'express';
-import { FederalDist, Region, Municipal } from '../../db/models';
+import session from 'express-session';
+import {
+  FederalDist, Region, Municipal, Initiative,
+} from '../../db/models';
 
 const router = express.Router();
 
@@ -26,5 +29,23 @@ router.get('/auth', (req, res) => {
 router.get('/initiative', (req, res) => {
   res.render('Layout');
 });
+
+router.route('/newInitiative')
+  .get((req, res) => {
+    res.render('Layout');
+  })
+  .post(async (req, res) => {
+    const {
+      name, description, term,
+    } = req.body;
+    if (!name || !description || !term) return res.send(400);
+    await Initiative.create({
+      name,
+      description,
+      user_id: 1,
+      term,
+    });
+    res.send(200);
+  });
 
 export default router;
