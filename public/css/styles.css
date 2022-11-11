@@ -1,0 +1,110 @@
+.oneInitiative-title {
+  color: black
+}
+
+.oneInitiative-section {
+  width: 70.8%;
+  margin-left: 10%;
+  display: flex;
+  /* background: url('https://funart.pro/uploads/posts/2022-08/thumbs/1660204815_2-funart-pro-p-biznes-fon-dlya-saita-krasivo-2.jpg') no-repeat center center fixed; */
+  /* background-size: cover; */
+  /* position: absolute; */
+  height: 100%;
+  justify-content: space-between; 
+  padding: 0 5% 0 5%; 
+  
+}
+
+.oneInitiative-text {
+  width: 80%;
+  padding-top: 5%;
+  color: white;
+  text-align: center;
+}
+
+.container-1 {
+  width: 70%;
+  margin-top: 5%;
+}
+
+.container-2 {
+  margin-top: 10%;
+  width: 25%;
+  /* margin-left: -5%; */
+}
+
+.container-2 h5 {
+  font-size: 17px;
+}
+.oneInitiative-title {
+  color: red;
+  text-align: center;
+}
+
+.oneInitiative-text {
+  width: 80%;
+  padding-top: 5%;
+}
+
+.container-1 {
+  width: 70%;
+  margin-top: 5%;
+}
+
+.container-2 {
+  margin-top: 10%;
+  width: 25%;
+  /* margin-left: -5%; */
+}
+
+.container-2 h5 {
+  font-size: 17px;
+}
+
+
+.row {
+  margin: 5px;
+  padding: 5px;
+}
+
+.navbar {
+  background: rgba(0,0,0,0.4);
+}
+
+.form-select {
+  background-color: rgba(0,0,0,0)
+}
+
+/* .containerUserPage {
+  background: url('https://funart.pro/uploads/posts/2022-08/thumbs/1660204815_2-funart-pro-p-biznes-fon-dlya-saita-krasivo-2.jpg') no-repeat center center fixed;} */
+  
+  body {
+    background: url('https://funart.pro/uploads/posts/2022-08/thumbs/1660204815_2-funart-pro-p-biznes-fon-dlya-saita-krasivo-2.jpg') no-repeat center center fixed;
+    background-size: cover;
+    height: 100vh;
+  }
+
+  .linkBtn {
+    width: 100%;
+    text-align: center;
+    margin: 2px;
+  }
+
+  .btn_card {
+    margin: 5px;
+  }
+
+  .card {
+    height: 350px;
+    margin: 5px;
+  }
+
+  .h2 {
+    font-style: italic;
+    font-size: 24px;
+  }
+
+  .select {
+    font-weight: bolder;
+  }
+  

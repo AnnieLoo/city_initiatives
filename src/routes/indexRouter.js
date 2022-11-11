@@ -105,8 +105,9 @@ router.route('/newInitiative')
   })
   .post(authCheck, async (req, res) => {
     // console.log(req.body);
+    // if (req.body.avatar.includes('http://') === false || req.body.avatar.incudes('https://') === false) { req.body.avatar = 'https://www.meme-arsenal.com/memes/fefac21eda463aa9a307c7cfdbea1bee.jpg'; }
     const {
-      name, description, term, level,
+      name, description, term, level, avatar,
     } = req.body;
     if (!name || !description || !term || !level) return res.status(400).json({ message: 'Все поля должны быть заполнены' });
     const newInitiative = await Initiative.create({
@@ -115,8 +116,20 @@ router.route('/newInitiative')
       user_id: req.session.user.id,
       term,
       level_id: Number(level),
+      avatar,
     });
     res.json(newInitiative);
   });
+
+router.get('/account', async (req, res) => {
+  const user = await User.findOne({
+    include: { all: true },
+    where: { id: req.session.user.id },
+    raw: true,
+  });
+  // console.log(user);
+  const initState = { user };
+  res.render('Layout', initState);
+});
 
 export default router;
