@@ -14,7 +14,7 @@ export default function InitiativeCard({ card }) {
   return (
     <div className="col-sm-6">
       <div
-        className="card"
+        className="card bg-light p-2 text-dark bg-opacity-50"
       >
         <div className="card-body">
           <h5 className="card-title">{card.name}</h5>

@@ -2,9 +2,9 @@ import React from 'react';
 
 export default function NavBar({ user }) {
   return (
-    <nav className="navbar navbar-expand-lg bg-danger bg-gradient">
+    <nav className="navbar navbar-expand-lg text-light">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/">Городские инициативы</a>
+        <a className="navbar-brand text-danger" href="/"><strong>Городские инициативы</strong></a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon" />
         </button>
@@ -25,7 +25,7 @@ export default function NavBar({ user }) {
             ) : (
               <>
                 <li className="nav-item">
-                  <a className="nav-link" href="/auth/account">Личный кабинет</a>
+                  <a className="nav-link" href="/account">Личный кабинет</a>
                 </li>
                 <li className="nav-item">
                   <a className="nav-link" href="/newInitiative">Создать инициативу</a>
